@@ -141,7 +141,7 @@
 		- Zero-coupon yield curve
 		- Discount factor curves
 		- Comparison between the results obtained from the bootstrap and QuantLib
-		-CSV files containing the intermediate and final results
+		- CSV files containing the intermediate and final results
 
 	The processed data in 'data/processed' includes:
 
@@ -156,7 +156,7 @@
 
 
     The from-scratch bootstrap produces results that are very close to the independent QuantLib benchmark.
-    The two zero-coupon curves remain close across all maturities, with a maximum deviation of approximately **0.44 basis points**.
+    The two zero-coupon curves remain close across all maturities, with a maximum deviation of approximately 0.44 basis points.
     The from-scratch bootstrap generally produces slightly higher zero-coupon rates than the QuantLib curve.
 
 
@@ -165,8 +165,8 @@
 
     The largest differences are observed:
 
-        - around the shortest maturities, particularly **2027 and 2028**;
-        - around **2037**, where the maximum deviation of approximately **0.44 basis points** is reached.
+        - around the shortest maturities, particularly 2027 and 2028;
+        - around 2037.
 
     Because both approaches use exactly the same dataset, including the same bond maturities and market prices, these differences cannot be attributed to differences in the input data.
     They instead result from differences in how the two methods process the same market information.
@@ -175,22 +175,22 @@
 #### Short-Maturity Differences
 
 
-    At short maturities, small differences in the treatment of **settlement conventions**, **accrued coupon interest**, and the transformation of market prices into discount factors can have a relatively noticeable impact on the resulting zero-coupon rates.
+    At short maturities, small differences in the treatment of settlement conventions, accrued coupon interest, and the transformation of market prices into discount factors can have a relatively noticeable impact on the resulting zero-coupon rates.
 
 
 #### Difference Around 2037
 
 
     The larger difference observed around 2037 is also a local methodological effect.
-    Both approaches use the same bond and maturity, but the from-scratch bootstrap determines discount factors **sequentially from the bond cash flows**, whereas QuantLib constructs a `PiecewiseLogLinearDiscount` curve.
+    Both approaches use the same bond and maturity, but the from-scratch bootstrap determines discount factors sequentially from the bond cash flows, whereas QuantLib constructs a `PiecewiseLogLinearDiscount` curve.
     The different treatment of the discount-factor curve between observed maturities can therefore lead to local differences in the resulting zero-coupon rates.
 
 
 #### Overall Behaviour
 
 
-    Importantly, the differences do not increase systematically with maturity. After the peak around 2037, they decrease again and remain below approximately **0.12 basis points** for the remaining maturities.
-    This suggests that the discrepancies are mainly **local effects resulting from the different bootstrap and curve-construction methodologies**, rather than an accumulation of errors throughout the bootstrap.
+    Importantly, the differences do not increase systematically with maturity. After the peak around 2037, they decrease again and remain below approximately 0.15 basis points for the remaining maturities.
+    This suggests that the discrepancies are mainly local effects resulting from the different bootstrap and curve-construction methodologies, rather than an accumulation of errors throughout the bootstrap.
     Overall, the close agreement between the two curves provides a strong validation of the from-scratch implementation, while also highlighting the impact of methodological choices such as settlement conventions and interpolation.
 
 
