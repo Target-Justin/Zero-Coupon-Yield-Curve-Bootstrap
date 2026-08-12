@@ -95,6 +95,9 @@
       DF(t_n) = [Dirty Price - Σ Cash Flow(t_i) × DF(t_i)] / Cash Flow(t_n)
 
 	Only previously bootstrapped discount factors are used. Therefore, the from-scratch bootstrap is performed sequentially without interpolation.
+	The bonds are ordered by successive maturity dates, from the shortest maturity to the longest. 
+	Each bond therefore contributes to the bootstrap only after the discount factors associated with earlier maturities have been determined. 
+	This sequential maturity structure is essential to the from-scratch bootstrap and avoids relying on future zero rates or interpolation.
 
 ### QuantLib Benchmark
 
@@ -206,7 +209,8 @@
 		- Day-count convention : Actual/Actual ISDA
 		- Calendar : French calendar
 		- Instruments : French government bonds (OAT)
-
+		- Maturities: OATs are ordered by increasing maturity and are treated sequentially in the bootstrap. 
+		
 	The bootstrap is performed sequentially, using only information available up to the current maturity.
 	Therefore, interpolation is not used, as it would require knowledge of a future maturity point that has not yet been bootstrapped.
 
