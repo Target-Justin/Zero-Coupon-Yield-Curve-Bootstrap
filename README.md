@@ -155,43 +155,24 @@
 ### Bootstrap Comparison
 
 
-    The from-scratch bootstrap produces results that are very close to the independent QuantLib benchmark.
-    The two zero-coupon curves remain close across all maturities, with a maximum deviation of approximately 0.44 basis points.
-    The from-scratch bootstrap generally produces slightly higher zero-coupon rates than the QuantLib curve.
+	The from-scratch bootstrap produces a zero-coupon curve that is very close to the QuantLib result. Across the maturities considered, the maximum difference is approximately 0.44 basis points, and the from-scratch implementation generally produces slightly higher zero-coupon rates.
 
 
-#### Main Differences
+#### Observed Differences
 
 
-    The largest differences are observed:
-
-        - around the shortest maturities, particularly 2027 and 2028;
-        - around 2037.
-
-    Because both approaches use exactly the same dataset, including the same bond maturities and market prices, these differences cannot be attributed to differences in the input data.
-    They instead result from differences in how the two methods process the same market information.
-
-
-#### Short-Maturity Differences
-
-
-    At short maturities, small differences in the treatment of settlement conventions, accrued coupon interest, and the transformation of market prices into discount factors may have a noticeable impact on the resulting zero-coupon rates.
-
-
-#### Difference Around 2037
-
-
-    The larger difference observed around 2037 is also a local discrepancy.
-    Both approaches use the same bond and maturity, but the from-scratch bootstrap and the QuantLib bootstrap don't appear to construct the discount-factor curve in exactly the same way.
-	Several interpolation methods available in QuantLib were tested, including 'PiecewiseLogLinearDiscount', 'PiecewiseLogCubicDiscount', 'PiecewiseLinearZero' and 'PiecewiseCubicZero'. The resulting differences around 2037 remained very similar across these interpolation methods. This suggests that the observed discrepancy is unlikely to be primarily caused by the choice of interpolation method.
+	The differences are not uniform across maturities. Some local deviations can be observed at different points along the curve, while the overall difference remains small.
+	Both implementations use the same bond dataset and market prices. However, the precise source of the observed differences has not been investigated in detail in this project.
+	Different QuantLib interpolation methods were also tested, including PiecewiseLogLinearDiscount, PiecewiseLogCubicDiscount, PiecewiseLinearZero, and PiecewiseCubicZero.
+	The two implementations may differ in several aspects of the curve construction, but no specific cause is identified here.
 
 
 #### Overall Behaviour
 
 
-    Importantly, the differences do not increase systematically with maturity. After the peak around 2037, they decrease again and remain below approximately 0.15 basis points for the remaining maturities.
-    This suggests that the discrepancies are mainly local effects resulting from the different bootstrap and curve-construction methodologies, rather than an accumulation of errors throughout the bootstrap.
-    Overall, the close agreement between the two curves provides a strong validation of the from-scratch implementation, while also highlighting the impact of methodological choices such as settlement conventions and interpolation.
+	The differences do not increase systematically with maturity. After the deviation observed around 2037, the differences decrease again and remain below approximately 0.15 basis points for the remaining maturities.
+	The comparison shows that the two implementations produce very similar zero-coupon curves for the dataset considered. It therefore provides a useful consistency check for the from-scratch implementation, while acknowledging that the two curves are not numerically identical.
+	The precise reasons for the remaining discrepancies are left open for further investigation.
 
 
 ### Visualizations
