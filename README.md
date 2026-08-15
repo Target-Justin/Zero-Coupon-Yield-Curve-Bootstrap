@@ -175,15 +175,15 @@
 #### Short-Maturity Differences
 
 
-    At short maturities, small differences in the treatment of settlement conventions, accrued coupon interest, and the transformation of market prices into discount factors can have a relatively noticeable impact on the resulting zero-coupon rates.
+    At short maturities, small differences in the treatment of settlement conventions, accrued coupon interest, and the transformation of market prices into discount factors may have a noticeable impact on the resulting zero-coupon rates.
 
 
 #### Difference Around 2037
 
 
-    The larger difference observed around 2037 is also a local methodological effect.
-    Both approaches use the same bond and maturity, but the from-scratch bootstrap determines discount factors sequentially from the bond cash flows, whereas QuantLib constructs a `PiecewiseLogLinearDiscount` curve.
-    The different treatment of the discount-factor curve between observed maturities can therefore lead to local differences in the resulting zero-coupon rates.
+    The larger difference observed around 2037 is also a local discrepancy.
+    Both approaches use the same bond and maturity, but the from-scratch bootstrap and the QuantLib bootstrap don't appear to construct the discount-factor curve in exactly the same way.
+	Several interpolation methods available in QuantLib were tested, including 'PiecewiseLogLinearDiscount', 'PiecewiseLogCubicDiscount', 'PiecewiseLinearZero' and 'PiecewiseCubicZero'. The resulting differences around 2037 remained very similar across these interpolation methods. This suggests that the observed discrepancy is unlikely to be primarily caused by the choice of interpolation method.
 
 
 #### Overall Behaviour
